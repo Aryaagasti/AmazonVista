@@ -1,0 +1,442 @@
+[
+  {
+    "id": 1,
+    "title": "Samsung Galaxy S23 Ultra 5G",
+    "brand": "Samsung",
+    "category": "mobiles",
+    "price": 99999,
+    "rating": 5,
+    "reviews": 1200,
+    "image": "https://m.media-amazon.com/images/I/61VfL-aiToL._SX679_.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Apple iPhone 14 Pro Max",
+    "brand": "Apple",
+    "category": "mobiles",
+    "price": 129999,
+    "rating": 4,
+    "reviews": 900,
+    "image": "https://m.media-amazon.com/images/I/610pghkO81L._SX679_.jpg"
+  },
+  {
+    "id": 3,
+    "title": "OnePlus 11 5G",
+    "brand": "OnePlus",
+    "category": "mobiles",
+    "price": 56999,
+    "rating": 4,
+    "reviews": 800,
+    "image": "https://m.media-amazon.com/images/I/613SAOPmLeL._SX679_.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Xiaomi 13 Pro",
+    "brand": "Xiaomi",
+    "category": "mobiles",
+    "price": 79999,
+    "rating": 4,
+    "reviews": 500,
+    "image": "https://m.media-amazon.com/images/I/51eTOPNpgFL._SX679_.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Samsung Galaxy A54 5G",
+    "brand": "Samsung",
+    "category": "mobiles",
+    "price": 38999,
+    "rating": 4,
+    "reviews": 650,
+    "image": "https://m.media-amazon.com/images/I/914RWt+XJWL._SX679_.jpg"
+  },
+  {
+    "id": 6,
+    "title": "Apple iPhone 13",
+    "brand": "Apple",
+    "category": "mobiles",
+    "price": 59999,
+    "rating": 4,
+    "reviews": 1500,
+    "image": "https://m.media-amazon.com/images/I/61l9ppRIiqL._SX679_.jpg"
+  },
+  {
+    "id": 7,
+    "title": "OnePlus Nord CE 3 Lite 5G",
+    "brand": "OnePlus",
+    "category": "mobiles",
+    "price": 19999,
+    "rating": 4,
+    "reviews": 320,
+    "image": "https://m.media-amazon.com/images/I/71AvQd3VzqL._SX679_.jpg"
+  },
+  {
+    "id": 8,
+    "title": "Xiaomi Redmi Note 12 Pro",
+    "brand": "Xiaomi",
+    "category": "mobiles",
+    "price": 24999,
+    "rating": 3,
+    "reviews": 420,
+    "image": "https://m.media-amazon.com/images/I/81Vr+FRyRkL._SX679_.jpg"
+  },
+  {
+    "id": 9,
+    "title": "Sony Bravia 55 inch 4K Ultra HD Smart LED Google TV",
+    "brand": "Sony",
+    "category": "electronics",
+    "price": 69990,
+    "rating": 4,
+    "reviews": 780,
+    "image": "https://m.media-amazon.com/images/I/81wxS8abrgL._SX679_.jpg"
+  },
+  {
+    "id": 10,
+    "title": "LG 65 inch 4K Ultra HD Smart OLED TV",
+    "brand": "LG",
+    "category": "electronics",
+    "price": 149990,
+    "rating": 5,
+    "reviews": 320,
+    "image": "https://m.media-amazon.com/images/I/71Dh+NR7ivL._SX679_.jpg"
+  },
+  {
+    "id": 11,
+    "title": "Samsung 50 inch Crystal 4K Series Ultra HD Smart LED TV",
+    "brand": "Samsung",
+    "category": "electronics",
+    "price": 46990,
+    "rating": 4,
+    "reviews": 890,
+    "image": "https://m.media-amazon.com/images/I/71RhIMc2TBL._SX679_.jpg"
+  },
+  {
+    "id": 12,
+    "title": "Sony WH-1000XM5 Wireless Noise Cancelling Headphones",
+    "brand": "Sony",
+    "category": "electronics",
+    "price": 29990,
+    "rating": 5,
+    "reviews": 450,
+    "image": "https://m.media-amazon.com/images/I/61+btxzpfDL._SX679_.jpg"
+  },
+  {
+    "id": 13,
+    "title": "Apple AirPods Pro (2nd Generation)",
+    "brand": "Apple",
+    "category": "electronics",
+    "price": 24990,
+    "rating": 4,
+    "reviews": 680,
+    "image": "https://m.media-amazon.com/images/I/61SUj2aKoEL._SX679_.jpg"
+  },
+  {
+    "id": 14,
+    "title": "JBL Flip 6 Portable Bluetooth Speaker",
+    "brand": "JBL",
+    "category": "electronics",
+    "price": 9999,
+    "rating": 4,
+    "reviews": 320,
+    "image": "https://m.media-amazon.com/images/I/61YCiS4-CmL._SX679_.jpg"
+  },
+  {
+    "id": 15,
+    "title": "Canon EOS R6 Mark II Mirrorless Camera",
+    "brand": "Canon",
+    "category": "electronics",
+    "price": 239990,
+    "rating": 5,
+    "reviews": 120,
+    "image": "https://m.media-amazon.com/images/I/71FlXBJCJjL._SX679_.jpg"
+  },
+  {
+    "id": 16,
+    "title": "DJI Mini 3 Pro Drone",
+    "brand": "DJI",
+    "category": "electronics",
+    "price": 89990,
+    "rating": 4,
+    "reviews": 210,
+    "image": "https://m.media-amazon.com/images/I/61O6JKmvbVL._SX679_.jpg"
+  },
+  {
+    "id": 17,
+    "title": "Apple MacBook Pro 16-inch",
+    "brand": "Apple",
+    "category": "computers",
+    "price": 249900,
+    "rating": 5,
+    "reviews": 450,
+    "image": "https://m.media-amazon.com/images/I/61fd2oCrvyL._SX679_.jpg"
+  },
+  {
+    "id": 18,
+    "title": "Dell XPS 15 Laptop",
+    "brand": "Dell",
+    "category": "computers",
+    "price": 179990,
+    "rating": 4,
+    "reviews": 320,
+    "image": "https://m.media-amazon.com/images/I/71jG+e7roXL._SX679_.jpg"
+  },
+  {
+    "id": 19,
+    "title": "HP Pavilion Gaming Desktop",
+    "brand": "HP",
+    "category": "computers",
+    "price": 89990,
+    "rating": 4,
+    "reviews": 280,
+    "image": "https://m.media-amazon.com/images/I/71DxKhGrLuL._SX679_.jpg"
+  },
+  {
+    "id": 20,
+    "title": "Lenovo IdeaPad Slim 5 Laptop",
+    "brand": "Lenovo",
+    "category": "computers",
+    "price": 64990,
+    "rating": 4,
+    "reviews": 190,
+    "image": "https://m.media-amazon.com/images/I/61Dw5Z8LzJL._SX679_.jpg"
+  },
+  {
+    "id": 21,
+    "title": "ASUS ROG Strix Gaming Laptop",
+    "brand": "ASUS",
+    "category": "computers",
+    "price": 129990,
+    "rating": 4,
+    "reviews": 340,
+    "image": "https://m.media-amazon.com/images/I/71Bfs-CYp2L._SX679_.jpg"
+  },
+  {
+    "id": 22,
+    "title": "Acer Predator Helios Gaming Laptop",
+    "brand": "Acer",
+    "category": "computers",
+    "price": 109990,
+    "rating": 4,
+    "reviews": 260,
+    "image": "https://m.media-amazon.com/images/I/71S8U9VzLTL._SX679_.jpg"
+  },
+  {
+    "id": 23,
+    "title": "Microsoft Surface Pro 9",
+    "brand": "Microsoft",
+    "category": "computers",
+    "price": 119990,
+    "rating": 4,
+    "reviews": 180,
+    "image": "https://m.media-amazon.com/images/I/71vdTR7UrIL._SX679_.jpg"
+  },
+  {
+    "id": 24,
+    "title": "Levi's Men's 511 Slim Fit Jeans",
+    "brand": "Levi's",
+    "category": "fashion",
+    "price": 2999,
+    "rating": 4,
+    "reviews": 890,
+    "image": "https://m.media-amazon.com/images/I/71NbkuBzddL._SX679_.jpg"
+  },
+  {
+    "id": 25,
+    "title": "Allen Solly Men's Regular Fit Shirt",
+    "brand": "Allen Solly",
+    "category": "fashion",
+    "price": 1499,
+    "rating": 4,
+    "reviews": 560,
+    "image": "https://m.media-amazon.com/images/I/71cFpnm0LVL._SX679_.jpg"
+  },
+  {
+    "id": 26,
+    "title": "Adidas Men's Running Shoes",
+    "brand": "Adidas",
+    "category": "fashion",
+    "price": 3999,
+    "rating": 4,
+    "reviews": 720,
+    "image": "https://m.media-amazon.com/images/I/71Nl1LrYI8L._SX679_.jpg"
+  },
+  {
+    "id": 27,
+    "title": "Nike Women's Sports Shoes",
+    "brand": "Nike",
+    "category": "fashion",
+    "price": 4999,
+    "rating": 4,
+    "reviews": 450,
+    "image": "https://m.media-amazon.com/images/I/71-uZc1-IQL._SX679_.jpg"
+  },
+  {
+    "id": 28,
+    "title": "Titan Men's Analog Watch",
+    "brand": "Titan",
+    "category": "fashion",
+    "price": 3499,
+    "rating": 4,
+    "reviews": 680,
+    "image": "https://m.media-amazon.com/images/I/71EHw68EScL._SX679_.jpg"
+  },
+  {
+    "id": 29,
+    "title": "Baggit Women's Handbag",
+    "brand": "Baggit",
+    "category": "fashion",
+    "price": 1999,
+    "rating": 4,
+    "reviews": 320,
+    "image": "https://m.media-amazon.com/images/I/71Kj-jV5v8L._SX679_.jpg"
+  },
+  {
+    "id": 30,
+    "title": "Ray-Ban Unisex Sunglasses",
+    "brand": "Ray-Ban",
+    "category": "fashion",
+    "price": 5999,
+    "rating": 4,
+    "reviews": 290,
+    "image": "https://m.media-amazon.com/images/I/51xI3Cz28+L._SX679_.jpg"
+  },
+  {
+    "id": 31,
+    "title": "IKEA BILLY Bookcase",
+    "brand": "IKEA",
+    "category": "home",
+    "price": 7999,
+    "rating": 4,
+    "reviews": 560,
+    "image": "https://m.media-amazon.com/images/I/71LDUVz+cBL._SX679_.jpg"
+  },
+  {
+    "id": 32,
+    "title": "Prestige Electric Kettle",
+    "brand": "Prestige",
+    "category": "home",
+    "price": 1499,
+    "rating": 4,
+    "reviews": 890,
+    "image": "https://m.media-amazon.com/images/I/51DGcy8eBCL._SX679_.jpg"
+  },
+  {
+    "id": 33,
+    "title": "Philips Air Purifier",
+    "brand": "Philips",
+    "category": "home",
+    "price": 15999,
+    "rating": 4,
+    "reviews": 320,
+    "image": "https://m.media-amazon.com/images/I/61SRb7OHKWL._SX679_.jpg"
+  },
+  {
+    "id": 34,
+    "title": "Bosch 8 kg Fully-Automatic Front Loading Washing Machine",
+    "brand": "Bosch",
+    "category": "home",
+    "price": 39990,
+    "rating": 4,
+    "reviews": 450,
+    "image": "https://m.media-amazon.com/images/I/71JxN3CgkzL._SX679_.jpg"
+  },
+  {
+    "id": 35,
+    "title": "LG 260L Frost Free Double Door Refrigerator",
+    "brand": "LG",
+    "category": "home",
+    "price": 26990,
+    "rating": 4,
+    "reviews": 680,
+    "image": "https://m.media-amazon.com/images/I/61Vg9EtDCsL._SX679_.jpg"
+  },
+  {
+    "id": 36,
+    "title": "Havells 1200mm Ceiling Fan",
+    "brand": "Havells",
+    "category": "home",
+    "price": 2499,
+    "rating": 4,
+    "reviews": 780,
+    "image": "https://m.media-amazon.com/images/I/51OvEwZzPTL._SX679_.jpg"
+  },
+  {
+    "id": 37,
+    "title": "Cello Plastic Dining Table Set",
+    "brand": "Cello",
+    "category": "home",
+    "price": 8999,
+    "rating": 3,
+    "reviews": 290,
+    "image": "https://m.media-amazon.com/images/I/61+WTrtG6QL._SX679_.jpg"
+  },
+  {
+    "id": 38,
+    "title": "The Psychology of Money",
+    "brand": "Morgan Housel",
+    "category": "books",
+    "price": 299,
+    "rating": 5,
+    "reviews": 1200,
+    "image": "https://m.media-amazon.com/images/I/41r6F2LRf8L._SX679_.jpg"
+  },
+  {
+    "id": 39,
+    "title": "Atomic Habits",
+    "brand": "James Clear",
+    "category": "books",
+    "price": 499,
+    "rating": 5,
+    "reviews": 980,
+    "image": "https://m.media-amazon.com/images/I/51-nXsSRfZL._SX679_.jpg"
+  },
+  {
+    "id": 40,
+    "title": "Ikigai: The Japanese Secret to a Long and Happy Life",
+    "brand": "Héctor García",
+    "category": "books",
+    "price": 399,
+    "rating": 4,
+    "reviews": 850,
+    "image": "https://m.media-amazon.com/images/I/51T8OXMiB5L._SX679_.jpg"
+  },
+  {
+    "id": 41,
+    "title": "Rich Dad Poor Dad",
+    "brand": "Robert T. Kiyosaki",
+    "category": "books",
+    "price": 349,
+    "rating": 4,
+    "reviews": 1500,
+    "image": "https://m.media-amazon.com/images/I/51u8ZRDCVoL._SX679_.jpg"
+  },
+  {
+    "id": 42,
+    "title": "Harry Potter Box Set: The Complete Collection",
+    "brand": "J.K. Rowling",
+    "category": "books",
+    "price": 3999,
+    "rating": 5,
+    "reviews": 780,
+    "image": "https://m.media-amazon.com/images/I/71rOzy4cyAL._SX679_.jpg"
+  },
+  {
+    "id": 43,
+    "title": "The Alchemist",
+    "brand": "Paulo Coelho",
+    "category": "books",
+    "price": 249,
+    "rating": 4,
+    "reviews": 1200,
+    "image": "https://m.media-amazon.com/images/I/71aFt4+OTOL._SX679_.jpg"
+  },
+  {
+    "id": 44,
+    "title": "Think and Grow Rich",
+    "brand": "Napoleon Hill",
+    "category": "books",
+    "price": 199,
+    "rating": 4,
+    "reviews": 950,
+    "image": "https://m.media-amazon.com/images/I/71AdHA+qqwL._SX679_.jpg"
+  }
+]

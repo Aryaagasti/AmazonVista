@@ -1,0 +1,227 @@
+/* Dark Mode Styles */
+
+/* Base styles */
+.dark-mode {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-tertiary: #2d2d2d;
+  --text-primary: #f0f0f0;
+  --text-secondary: #b0b0b0;
+  --border-color: #3a3a3a;
+  --amazon-blue: #131921;
+  --amazon-blue-light: #232f3e;
+  --amazon-yellow: #febd69;
+  --amazon-yellow-hover: #f3a847;
+  --amazon-orange: #ff9900;
+  --amazon-orange-hover: #e88a00;
+
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Smooth transition for all elements when switching themes */
+body, body * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Navbar */
+.dark-mode nav {
+  background-color: #0f1923 !important;
+}
+
+.dark-mode .bg-\[\#232F3E\] {
+  background-color: #1a2530 !important;
+}
+
+/* Cards and containers */
+.dark-mode .bg-white {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.dark-mode .border {
+  border-color: var(--border-color);
+}
+
+.dark-mode .border-gray-200 {
+  border-color: var(--border-color);
+}
+
+.dark-mode .text-black {
+  color: var(--text-primary);
+}
+
+.dark-mode .text-gray-700,
+.dark-mode .text-gray-600,
+.dark-mode .text-gray-500 {
+  color: var(--text-secondary);
+}
+
+/* Inputs */
+.dark-mode input[type="text"],
+.dark-mode input[type="number"],
+.dark-mode input[type="email"],
+.dark-mode input[type="password"],
+.dark-mode select,
+.dark-mode textarea {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.dark-mode input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Search bar */
+.dark-mode .search-bar {
+  background-color: var(--bg-tertiary);
+}
+
+.dark-mode .search-bar input {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+/* Buttons */
+.dark-mode .bg-gray-200 {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.dark-mode .bg-gray-100 {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.dark-mode .hover\:bg-gray-200:hover {
+  background-color: #3a3a3a;
+}
+
+.dark-mode .hover\:bg-gray-100:hover {
+  background-color: #3a3a3a;
+}
+
+/* Amazon buttons */
+.dark-mode .bg-amazon_yellow {
+  background-color: var(--amazon-yellow) !important;
+  color: #000 !important;
+  border-color: #c99c55 !important;
+}
+
+.dark-mode .bg-amazon_yellow:hover {
+  background-color: var(--amazon-yellow-hover) !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Add to cart button */
+.dark-mode button.bg-amazon_yellow,
+.dark-mode button.bg-amazon_orange {
+  transform: translateY(0);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.dark-mode button.bg-amazon_yellow:hover,
+.dark-mode button.bg-amazon_orange:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Product cards */
+.dark-mode .product-card,
+.dark-mode .bg-white.rounded-lg,
+.dark-mode .bg-white.p-4 {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+.dark-mode .product-card:hover,
+.dark-mode .bg-white.rounded-lg:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Product images */
+.dark-mode .product-card img,
+.dark-mode .bg-white img {
+  filter: brightness(0.95);
+}
+
+/* Product titles */
+.dark-mode .product-card h2,
+.dark-mode .product-card h3,
+.dark-mode .bg-white h2,
+.dark-mode .bg-white h3 {
+  color: var(--text-primary);
+}
+
+/* Footer */
+.dark-mode footer {
+  background-color: #0f1923;
+  color: var(--text-primary);
+}
+
+.dark-mode .bg-\[\#131A22\] {
+  background-color: #0a1017 !important;
+}
+
+/* Sidebar */
+.dark-mode .sidebar {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+/* Modals and dialogs */
+.dark-mode .modal {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Specific components */
+.dark-mode .cart-item {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+.dark-mode .product-detail {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* Preserve some colors */
+.dark-mode .text-amazon_yellow {
+  color: var(--amazon-yellow) !important;
+}
+
+.dark-mode .text-amazon_orange {
+  color: var(--amazon-orange) !important;
+}
+
+.dark-mode .text-amazon_red {
+  color: #ff6b6b !important;
+}
+
+.dark-mode .text-amazon_teal {
+  color: #4fd1c5 !important;
+}
+
+/* Preserve button colors */
+.dark-mode .bg-amazon_yellow {
+  background-color: var(--amazon-yellow) !important;
+}
+
+.dark-mode .bg-amazon_orange {
+  background-color: var(--amazon-orange) !important;
+}
+
+/* Shadows */
+.dark-mode .shadow-md,
+.dark-mode .shadow-lg,
+.dark-mode .shadow-sm {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Transitions */
+.dark-mode * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
