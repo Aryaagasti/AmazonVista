@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useCart } from "../context/CartContext";
 import { useTheme } from "../context/ThemeContext";
 import productsData from "../assets/products.json";
-import VoiceCommandButton from "./VoiceCommandButton";
+import SimpleVoiceCommands from "./SimpleVoiceCommands";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar({ onSearch, onCategoryChange, onMenuClick }) {
@@ -392,28 +392,7 @@ export default function Navbar({ onSearch, onCategoryChange, onMenuClick }) {
             <div className="flex flex-col items-center">
               <div className="relative">
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-amazon_red rounded-full animate-ping"></div>
-                <VoiceCommandButton
-                  onAddToCart={(product) => {
-                    try {
-                      console.log("Navbar adding product:", product);
-                      dispatch({ type: "ADD", product });
-                      console.log("Product added successfully from navbar");
-                    } catch (error) {
-                      console.error("Error adding product from navbar:", error);
-                      alert("There was an error adding the product. Please try again.");
-                    }
-                  }}
-                  onRemoveFromCart={(productId) => {
-                    try {
-                      console.log("Navbar removing product:", productId);
-                      dispatch({ type: "REMOVE", id: productId });
-                      console.log("Product removed successfully from navbar");
-                    } catch (error) {
-                      console.error("Error removing product from navbar:", error);
-                      alert("There was an error removing the product. Please try again.");
-                    }
-                  }}
-                />
+                <SimpleVoiceCommands />
               </div>
               <span className="text-xs mt-1 font-bold hidden sm:inline">Voice</span>
             </div>
