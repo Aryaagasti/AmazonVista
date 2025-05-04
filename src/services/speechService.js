@@ -5,15 +5,26 @@
  * @returns {SpeechRecognition} - Speech recognition object
  */
 export const initSpeechRecognition = () => {
-  // Check browser support
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-  if (!SpeechRecognition) {
-    console.error("Speech recognition not supported in this browser");
-    return null;
-  }
-
   try {
+    // Check if we're in a secure context (HTTPS or localhost)
+    const isSecureContext = window.isSecureContext;
+    if (!isSecureContext) {
+      console.error("Speech Recognition requires a secure context (HTTPS)");
+      return null;
+    }
+
+    // Check browser support
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      console.error("Speech recognition not supported in this browser");
+      return null;
+    }
+
+    // Check if we're in a deployed environment (not localhost)
+    const isDeployed = !window.location.hostname.includes('localhost') &&
+                       !window.location.hostname.includes('127.0.0.1');
+
     // Create recognition instance
     const recognition = new SpeechRecognition();
 
@@ -22,6 +33,13 @@ export const initSpeechRecognition = () => {
     recognition.lang = 'en-US';
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
+
+    // Add additional settings for deployed environments
+    if (isDeployed) {
+      // These settings can help in deployed environments
+      recognition.interimResults = true; // Get partial results to improve responsiveness
+      recognition.maxAlternatives = 3; // Get more alternatives to improve accuracy
+    }
 
     console.log("Speech recognition initialized successfully");
     return recognition;

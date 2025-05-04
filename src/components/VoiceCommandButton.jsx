@@ -21,12 +21,31 @@ export default function VoiceCommandButton({ onAddToCart, onRemoveFromCart }) {
 
   // Initialize speech recognition on component mount
   useEffect(() => {
+    // Check if we're in a secure context (HTTPS or localhost)
+    const isSecureContext = window.isSecureContext;
+
+    // Check if we're in a deployed environment (not localhost)
+    const isDeployed = !window.location.hostname.includes('localhost') &&
+                       !window.location.hostname.includes('127.0.0.1');
+
+    if (!isSecureContext && isDeployed) {
+      if (DEBUG) console.log("Speech recognition requires HTTPS in deployed environments");
+      setSupported(false);
+      setError("Voice commands require HTTPS. Please use a secure connection.");
+      return;
+    }
+
     // Check if speech recognition is supported
     const recognition = initSpeechRecognition();
 
     if (!recognition) {
       if (DEBUG) console.log("Speech recognition not supported");
       setSupported(false);
+
+      // Provide more specific error message
+      if (isDeployed) {
+        setError("Voice commands are not supported in this browser. Please try Chrome or Edge.");
+      }
     } else {
       if (DEBUG) console.log("Speech recognition is supported");
       setSupported(true);
@@ -51,8 +70,19 @@ export default function VoiceCommandButton({ onAddToCart, onRemoveFromCart }) {
   const toggleListening = () => {
     if (DEBUG) console.log("Toggle listening called, current state:", isListening);
 
+    // Check if we're in a secure context (HTTPS or localhost)
+    const isSecureContext = window.isSecureContext;
+
+    // Check if we're in a deployed environment (not localhost)
+    const isDeployed = !window.location.hostname.includes('localhost') &&
+                       !window.location.hostname.includes('127.0.0.1');
+
     if (!supported) {
-      setError("Speech recognition is not supported in your browser. Please try Chrome or Edge.");
+      if (isDeployed && !isSecureContext) {
+        setError("Voice commands require HTTPS. Please use a secure connection or try on localhost.");
+      } else {
+        setError("Speech recognition is not supported in your browser. Please try Chrome or Edge.");
+      }
       return;
     }
 
@@ -403,15 +433,36 @@ export default function VoiceCommandButton({ onAddToCart, onRemoveFromCart }) {
       });
   };
 
+  // Check if we're in a deployed environment (not localhost)
+  const isDeployed = !window.location.hostname.includes('localhost') &&
+                     !window.location.hostname.includes('127.0.0.1');
+
+  // Check if we're in a secure context (HTTPS or localhost)
+  const isSecureContext = window.isSecureContext;
+
   if (!supported) {
     return (
       <div className="relative">
         <button
           className="bg-gray-200 text-gray-500 rounded-full p-2 cursor-not-allowed"
-          title="Voice commands not supported in this browser"
+          title={isDeployed && !isSecureContext
+            ? "Voice commands require HTTPS. Please use a secure connection."
+            : "Voice commands not supported in this browser"}
+          onClick={() => {
+            if (isDeployed && !isSecureContext) {
+              alert("Voice commands require HTTPS. This feature works on localhost or with a secure (HTTPS) connection.");
+            } else {
+              alert("Voice commands are not supported in this browser. Please try Chrome or Edge.");
+            }
+          }}
         >
           <span className="material-icons">mic_off</span>
         </button>
+        {isDeployed && !isSecureContext && (
+          <div className="absolute top-full mt-2 right-0 bg-yellow-50 border border-yellow-200 text-yellow-800 p-2 rounded text-xs w-48">
+            Voice commands require HTTPS
+          </div>
+        )}
       </div>
     );
   }
