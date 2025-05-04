@@ -1,0 +1,260 @@
+/* Amazon Loader Container */
+.amazon-loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.amazon-loader-container.fade-in {
+  opacity: 1;
+}
+
+.amazon-loader-container.fade-out {
+  opacity: 0;
+}
+
+.amazon-loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Amazon Smile Animation */
+.amazon-smile {
+  position: relative;
+  width: 120px;
+  height: 60px;
+  margin-bottom: 20px;
+}
+
+.smile-curve {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 120px;
+  height: 40px;
+  border-bottom: 12px solid #FF9900;
+  border-radius: 50%;
+  animation: smile-bounce 2s infinite;
+}
+
+.arrow-head {
+  position: absolute;
+  bottom: 0;
+  right: -6px;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid #FF9900;
+  transform: rotate(90deg);
+  animation: arrow-bounce 2s infinite;
+}
+
+@keyframes smile-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes arrow-bounce {
+  0%, 100% {
+    transform: rotate(90deg) translateX(0);
+  }
+  50% {
+    transform: rotate(90deg) translateX(-5px);
+  }
+}
+
+/* Package Animation */
+.package-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 30px;
+  perspective: 500px;
+}
+
+.package {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: package-rotate 3s infinite ease-in-out;
+}
+
+.package-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background-color: #e0e0e0;
+  transform: rotateX(90deg) translateZ(50px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.amazon-tape {
+  width: 80%;
+  height: 10px;
+  background: linear-gradient(90deg, #FF9900, #232F3E, #FF9900);
+  animation: tape-shine 2s infinite;
+}
+
+.package-body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #d5d5d5;
+  transform-style: preserve-3d;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.package-body::before,
+.package-body::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.package-body::before {
+  top: 0;
+  left: 0;
+  background-color: #e8e8e8;
+  transform: rotateY(90deg) translateZ(50px);
+}
+
+.package-body::after {
+  top: 0;
+  left: 0;
+  background-color: #c8c8c8;
+  transform: rotateX(-90deg) translateZ(50px);
+}
+
+@keyframes package-rotate {
+  0% {
+    transform: rotateX(0) rotateY(0);
+  }
+  25% {
+    transform: rotateX(15deg) rotateY(90deg);
+  }
+  50% {
+    transform: rotateX(0) rotateY(180deg);
+  }
+  75% {
+    transform: rotateX(-15deg) rotateY(270deg);
+  }
+  100% {
+    transform: rotateX(0) rotateY(360deg);
+  }
+}
+
+@keyframes tape-shine {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Loading Text Animation */
+.loading-text {
+  display: flex;
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #232F3E;
+}
+
+.loading-text span {
+  animation: text-bounce 1.5s infinite;
+  display: inline-block;
+  transform-origin: bottom center;
+}
+
+.loading-text span:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.loading-text span:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.loading-text span:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.loading-text span:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.loading-text span:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.loading-text span:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.loading-text span:nth-child(8) {
+  animation-delay: 0.8s;
+}
+.loading-text span:nth-child(9) {
+  animation-delay: 1s;
+}
+.loading-text span:nth-child(10) {
+  animation-delay: 1.2s;
+}
+
+@keyframes text-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-10px) scale(1.1);
+    color: #FF9900;
+  }
+  60% {
+    transform: translateY(0);
+  }
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .amazon-smile {
+    width: 100px;
+    height: 50px;
+  }
+  
+  .smile-curve {
+    width: 100px;
+    height: 30px;
+    border-bottom-width: 10px;
+  }
+  
+  .arrow-head {
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+  }
+  
+  .package-container {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .loading-text {
+    font-size: 20px;
+  }
+}
