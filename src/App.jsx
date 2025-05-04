@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import CartPage from "./pages/CartPage";
 import ProductDetail from "./pages/ProductDetail";
 import CheckoutPage from "./pages/CheckoutPage";
+import BudgetAssistant from "./components/BudgetAssistant";
 import { useState, useEffect } from "react";
 import { refreshCart } from "./utils/cartHelper";
 import "./styles/darkMode.css";
@@ -67,6 +68,7 @@ function App() {
     <ThemeProvider>
       <CartProvider>
         {renderPage()}
+        <BudgetAssistant />
       </CartProvider>
     </ThemeProvider>
   );

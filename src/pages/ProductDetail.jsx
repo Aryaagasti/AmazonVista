@@ -4,6 +4,7 @@ import { useTheme } from "../context/ThemeContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ProductChatbot from "../components/ProductChatbot";
+import PriceGraph from "../components/PriceGraph";
 import productsData from "../assets/products.json";
 
 export default function ProductDetail() {
@@ -298,6 +299,9 @@ export default function ProductDetail() {
                   </button>
                 </div>
               </div>
+
+              {/* Price Graph */}
+              <PriceGraph productId={product.id} currentPrice={product.price} />
 
               {/* Delivery */}
               <div className="border border-gray-200 rounded p-3 mb-4">

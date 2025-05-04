@@ -94,6 +94,19 @@ export default function ProductCard({ product }) {
         )}
 
         <div className="text-xs text-amazon_green mb-1">In Stock</div>
+
+        {/* Eco-Friendly Tag */}
+        {Math.random() > 0.5 && (
+          <div className="flex items-center mb-1">
+            <span className="text-green-600 mr-1">♻️</span>
+            <span className="text-xs text-green-700 font-medium">Eco-Friendly</span>
+          </div>
+        )}
+
+        {/* Carbon Footprint Info */}
+        <div className="text-xs text-gray-500 mb-1">
+          Estimated shipping carbon: {(Math.random() * 0.8 + 0.2).toFixed(1)} kg CO₂
+        </div>
       </div>
 
       <div className="mt-2 flex flex-col gap-1">
