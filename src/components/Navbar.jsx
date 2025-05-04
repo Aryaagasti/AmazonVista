@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useCart } from "../context/CartContext";
 import { useTheme } from "../context/ThemeContext";
 import productsData from "../assets/products.json";
-import SimpleVoiceCommands from "./SimpleVoiceCommands";
+import RealVoiceCommands from "./RealVoiceCommands";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar({ onSearch, onCategoryChange, onMenuClick }) {
@@ -392,7 +392,7 @@ export default function Navbar({ onSearch, onCategoryChange, onMenuClick }) {
             <div className="flex flex-col items-center">
               <div className="relative">
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-amazon_red rounded-full animate-ping"></div>
-                <SimpleVoiceCommands />
+                <RealVoiceCommands />
               </div>
               <span className="text-xs mt-1 font-bold hidden sm:inline">Voice</span>
             </div>
