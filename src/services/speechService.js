@@ -4,11 +4,20 @@
  * Initialize speech recognition
  * @returns {SpeechRecognition} - Speech recognition object
  */
+// Force enable voice commands even in non-secure contexts (for Vercel deployment)
+const FORCE_ENABLE_VOICE = true;
+
 export const initSpeechRecognition = () => {
   try {
     // Check if we're in a secure context (HTTPS or localhost)
     const isSecureContext = window.isSecureContext;
-    if (!isSecureContext) {
+
+    // Check if we're in a deployed environment (not localhost)
+    const isDeployed = !window.location.hostname.includes('localhost') &&
+                       !window.location.hostname.includes('127.0.0.1');
+
+    // Only check secure context if we're not forcing voice commands
+    if (!isSecureContext && !FORCE_ENABLE_VOICE) {
       console.error("Speech Recognition requires a secure context (HTTPS)");
       return null;
     }
@@ -20,10 +29,6 @@ export const initSpeechRecognition = () => {
       console.error("Speech recognition not supported in this browser");
       return null;
     }
-
-    // Check if we're in a deployed environment (not localhost)
-    const isDeployed = !window.location.hostname.includes('localhost') &&
-                       !window.location.hostname.includes('127.0.0.1');
 
     // Create recognition instance
     const recognition = new SpeechRecognition();
@@ -39,6 +44,14 @@ export const initSpeechRecognition = () => {
       // These settings can help in deployed environments
       recognition.interimResults = true; // Get partial results to improve responsiveness
       recognition.maxAlternatives = 3; // Get more alternatives to improve accuracy
+
+      // Add special settings for non-secure contexts
+      if (!isSecureContext && FORCE_ENABLE_VOICE) {
+        console.log("Forcing voice recognition in non-secure context");
+        // These settings might help in non-secure contexts
+        recognition.continuous = false; // Less likely to cause errors
+        recognition.maxAlternatives = 5; // More alternatives for better accuracy
+      }
     }
 
     console.log("Speech recognition initialized successfully");

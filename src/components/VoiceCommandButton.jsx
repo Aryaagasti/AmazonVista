@@ -7,6 +7,9 @@ import { addToCart, updateCartUI } from "../utils/cartHelper";
 // Debug flag - set to true to enable console logs
 const DEBUG = true;
 
+// Force enable voice commands even in non-secure contexts (for Vercel deployment)
+const FORCE_ENABLE_VOICE = true;
+
 export default function VoiceCommandButton({ onAddToCart, onRemoveFromCart }) {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
@@ -28,7 +31,8 @@ export default function VoiceCommandButton({ onAddToCart, onRemoveFromCart }) {
     const isDeployed = !window.location.hostname.includes('localhost') &&
                        !window.location.hostname.includes('127.0.0.1');
 
-    if (!isSecureContext && isDeployed) {
+    // Force enable voice commands even in non-secure contexts if flag is set
+    if (!isSecureContext && isDeployed && !FORCE_ENABLE_VOICE) {
       if (DEBUG) console.log("Speech recognition requires HTTPS in deployed environments");
       setSupported(false);
       setError("Voice commands require HTTPS. Please use a secure connection.");
@@ -52,6 +56,28 @@ export default function VoiceCommandButton({ onAddToCart, onRemoveFromCart }) {
 
       // Store initial instance
       recognitionRef.current = recognition;
+
+      // If we're in a deployed environment, log additional information
+      if (isDeployed) {
+        console.log("Voice commands initialized in deployed environment");
+        console.log("Secure context:", isSecureContext);
+        console.log("Force enable:", FORCE_ENABLE_VOICE);
+
+        // Try to request microphone permission early
+        try {
+          navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+              console.log("Microphone permission granted early");
+              // Stop all tracks to release the microphone
+              stream.getTracks().forEach(track => track.stop());
+            })
+            .catch(err => {
+              console.error("Error requesting early microphone permission:", err);
+            });
+        } catch (err) {
+          console.error("Error in early microphone permission request:", err);
+        }
+      }
     }
 
     // Clean up on unmount
@@ -78,12 +104,35 @@ export default function VoiceCommandButton({ onAddToCart, onRemoveFromCart }) {
                        !window.location.hostname.includes('127.0.0.1');
 
     if (!supported) {
-      if (isDeployed && !isSecureContext) {
+      // If we're forcing voice commands, try to initialize again
+      if (isDeployed && !isSecureContext && FORCE_ENABLE_VOICE) {
+        if (DEBUG) console.log("Attempting to force enable voice commands");
+
+        try {
+          // Try to create a new recognition instance
+          const recognition = initSpeechRecognition();
+
+          if (recognition) {
+            if (DEBUG) console.log("Successfully forced voice recognition");
+            recognitionRef.current = recognition;
+            setSupported(true);
+            // Continue with listening
+          } else {
+            setError("Voice commands are not supported in your browser. Please try Chrome or Edge.");
+            return;
+          }
+        } catch (e) {
+          console.error("Error forcing voice recognition:", e);
+          setError("Could not initialize voice commands. Please try Chrome or Edge.");
+          return;
+        }
+      } else if (isDeployed && !isSecureContext) {
         setError("Voice commands require HTTPS. Please use a secure connection or try on localhost.");
+        return;
       } else {
         setError("Speech recognition is not supported in your browser. Please try Chrome or Edge.");
+        return;
       }
-      return;
     }
 
     // If we're already listening, stop
@@ -365,6 +414,14 @@ export default function VoiceCommandButton({ onAddToCart, onRemoveFromCart }) {
         if (DEBUG) console.log("Microphone permission granted");
         setShowPermissionPrompt(false);
 
+        // Save permission granted flag to localStorage
+        try {
+          localStorage.setItem('microphonePermissionGranted', 'true');
+          console.log("Saved microphone permission to localStorage");
+        } catch (e) {
+          console.error("Error saving to localStorage:", e);
+        }
+
         // Stop all tracks to release the microphone
         stream.getTracks().forEach(track => track.stop());
 
@@ -375,6 +432,13 @@ export default function VoiceCommandButton({ onAddToCart, onRemoveFromCart }) {
         console.error("Error requesting microphone permission:", err);
         setError("Microphone access denied. Please allow microphone access in your browser settings.");
         setShowPermissionPrompt(false);
+
+        // Save permission denied flag to localStorage
+        try {
+          localStorage.setItem('microphonePermissionDenied', 'true');
+        } catch (e) {
+          console.error("Error saving to localStorage:", e);
+        }
       });
   };
 
@@ -391,27 +455,57 @@ export default function VoiceCommandButton({ onAddToCart, onRemoveFromCart }) {
       return;
     }
 
-    // Check if permission was already granted
-    navigator.permissions.query({ name: 'microphone' })
-      .then(permissionStatus => {
-        if (DEBUG) console.log("Microphone permission status:", permissionStatus.state);
+    // Check if permission was previously granted in localStorage
+    const permissionGranted = localStorage.getItem('microphonePermissionGranted');
+    const permissionDenied = localStorage.getItem('microphonePermissionDenied');
 
-        if (permissionStatus.state === 'granted') {
-          // Permission already granted, start listening
-          toggleListening();
-        } else if (permissionStatus.state === 'prompt') {
-          // Show our custom permission prompt
+    if (permissionGranted === 'true') {
+      if (DEBUG) console.log("Permission previously granted in localStorage");
+      // Permission was previously granted, start listening
+      toggleListening();
+      return;
+    }
+
+    if (permissionDenied === 'true') {
+      if (DEBUG) console.log("Permission previously denied in localStorage");
+      // Show error message but also allow retry
+      setError("Microphone access was previously denied. Please allow microphone access in your browser settings.");
+      // Still show permission prompt to allow retry
+      setShowPermissionPrompt(true);
+      return;
+    }
+
+    // If we don't have localStorage info, try to check permission status
+    try {
+      navigator.permissions.query({ name: 'microphone' })
+        .then(permissionStatus => {
+          if (DEBUG) console.log("Microphone permission status:", permissionStatus.state);
+
+          if (permissionStatus.state === 'granted') {
+            // Permission already granted, start listening
+            toggleListening();
+            // Save to localStorage
+            localStorage.setItem('microphonePermissionGranted', 'true');
+          } else if (permissionStatus.state === 'prompt') {
+            // Show our custom permission prompt
+            setShowPermissionPrompt(true);
+          } else {
+            // Permission denied
+            setError("Microphone access denied. Please allow microphone access in your browser settings.");
+            // Save to localStorage
+            localStorage.setItem('microphonePermissionDenied', 'true');
+          }
+        })
+        .catch(err => {
+          console.error("Error checking microphone permission:", err);
+          // If we can't check permission, show our custom prompt
           setShowPermissionPrompt(true);
-        } else {
-          // Permission denied
-          setError("Microphone access denied. Please allow microphone access in your browser settings.");
-        }
-      })
-      .catch(err => {
-        console.error("Error checking microphone permission:", err);
-        // If we can't check permission, just try to start listening
-        toggleListening();
-      });
+        });
+    } catch (err) {
+      console.error("Error in permissions API:", err);
+      // If permissions API fails, show our custom prompt
+      setShowPermissionPrompt(true);
+    }
   };
 
   // Start listening after tutorial
@@ -444,23 +538,75 @@ export default function VoiceCommandButton({ onAddToCart, onRemoveFromCart }) {
     return (
       <div className="relative">
         <button
-          className="bg-gray-200 text-gray-500 rounded-full p-2 cursor-not-allowed"
-          title={isDeployed && !isSecureContext
-            ? "Voice commands require HTTPS. Please use a secure connection."
-            : "Voice commands not supported in this browser"}
+          className="bg-amazon_teal text-white rounded-full p-2 hover:bg-amazon_teal-dark transition-colors"
+          title="Click to enable voice commands"
           onClick={() => {
-            if (isDeployed && !isSecureContext) {
-              alert("Voice commands require HTTPS. This feature works on localhost or with a secure (HTTPS) connection.");
-            } else {
-              alert("Voice commands are not supported in this browser. Please try Chrome or Edge.");
-            }
+            // Always show the permission prompt
+            setShowPermissionPrompt(true);
           }}
         >
           <span className="material-icons">mic_off</span>
         </button>
-        {isDeployed && !isSecureContext && (
-          <div className="absolute top-full mt-2 right-0 bg-yellow-50 border border-yellow-200 text-yellow-800 p-2 rounded text-xs w-48">
-            Voice commands require HTTPS
+        <div className="absolute top-full mt-2 right-0 bg-yellow-50 border border-yellow-200 text-yellow-800 p-2 rounded text-xs w-48">
+          Click to enable voice commands
+        </div>
+
+        {/* Permission Prompt */}
+        {showPermissionPrompt && (
+          <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[9999]">
+            <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-2xl border-4 border-amazon_teal">
+              <div className="text-xl font-bold mb-3 flex items-center text-amazon_teal">
+                <span className="material-icons text-amazon_teal mr-2">mic</span>
+                Enable Voice Commands
+              </div>
+
+              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                <div className="flex">
+                  <div className="flex-shrink-0">
+                    <span className="material-icons text-yellow-400">info</span>
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-sm text-yellow-700">
+                      <strong>Important:</strong> Voice commands require microphone access.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <p className="mb-4">
+                To use voice commands, we need permission to access your microphone.
+                Your voice data is processed locally and not stored.
+              </p>
+
+              <div className="bg-gray-100 p-4 rounded-lg mb-4">
+                <h3 className="font-bold mb-2">How to enable voice commands:</h3>
+                <ol className="list-decimal pl-5 text-sm space-y-2">
+                  <li>Click the "Enable Voice Commands" button below</li>
+                  <li>When your browser shows a permission popup, click "Allow"</li>
+                  <li>If no popup appears, check your browser settings</li>
+                </ol>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-4 rounded-lg font-medium"
+                  onClick={() => setShowPermissionPrompt(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="flex-1 bg-amazon_teal hover:bg-amazon_teal-dark text-white py-3 px-4 rounded-lg font-bold text-lg flex items-center justify-center"
+                  onClick={requestMicrophonePermission}
+                >
+                  <span className="material-icons mr-2">check_circle</span>
+                  Enable Voice Commands
+                </button>
+              </div>
+
+              <div className="mt-4 text-xs text-gray-500 text-center">
+                Note: If you've previously denied permission, you may need to reset it in your browser settings.
+              </div>
+            </div>
           </div>
         )}
       </div>
@@ -558,16 +704,38 @@ export default function VoiceCommandButton({ onAddToCart, onRemoveFromCart }) {
       {/* Permission Prompt */}
       {showPermissionPrompt && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[9999]">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-2xl">
-            <div className="text-xl font-bold mb-3 flex items-center">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-2xl border-4 border-amazon_teal">
+            <div className="text-xl font-bold mb-3 flex items-center text-amazon_teal">
               <span className="material-icons text-amazon_teal mr-2">mic</span>
               Microphone Access Required
+            </div>
+
+            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <span className="material-icons text-yellow-400">info</span>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm text-yellow-700">
+                    <strong>Important:</strong> Voice commands require microphone access.
+                  </p>
+                </div>
+              </div>
             </div>
 
             <p className="mb-4">
               To use voice commands, we need permission to access your microphone.
               Your voice data is processed locally and not stored.
             </p>
+
+            <div className="bg-gray-100 p-4 rounded-lg mb-4">
+              <h3 className="font-bold mb-2">How to enable microphone access:</h3>
+              <ol className="list-decimal pl-5 text-sm space-y-2">
+                <li>Click the "Allow Microphone" button below</li>
+                <li>When your browser shows a permission popup, click "Allow"</li>
+                <li>If no popup appears, check your browser settings</li>
+              </ol>
+            </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
               <button
@@ -577,12 +745,16 @@ export default function VoiceCommandButton({ onAddToCart, onRemoveFromCart }) {
                 Cancel
               </button>
               <button
-                className="flex-1 bg-amazon_teal hover:bg-amazon_teal-dark text-white py-3 px-4 rounded-lg font-medium flex items-center justify-center"
+                className="flex-1 bg-amazon_teal hover:bg-amazon_teal-dark text-white py-3 px-4 rounded-lg font-bold text-lg flex items-center justify-center"
                 onClick={requestMicrophonePermission}
               >
                 <span className="material-icons mr-2">check_circle</span>
                 Allow Microphone
               </button>
+            </div>
+
+            <div className="mt-4 text-xs text-gray-500 text-center">
+              Note: If you've previously denied permission, you may need to reset it in your browser settings.
             </div>
           </div>
         </div>
